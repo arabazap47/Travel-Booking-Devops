@@ -1,0 +1,33 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+export default function HotelCard({ hotel }) {
+  return (
+    <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full md:w-48 h-40 bg-gray-200 flex-shrink-0">
+        <img
+          src={hotel.image}
+          alt={hotel.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="p-4 flex-grow flex flex-col justify-between">
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800">{hotel.name}</h3>
+          <p className="text-sm text-gray-500 mt-1">{hotel.location}</p>
+          <div className="mt-2 text-yellow-600 font-medium">{hotel.rating} ★</div>
+        </div>
+        <div className="mt-4 text-right">
+          <div className="text-xl font-bold text-gray-800">₹{hotel.price}</div>
+          <div className="text-sm text-gray-500">per night</div>
+          <Link
+            to={`/hotel/${hotel.id}`}
+            className="inline-block mt-2 px-3 py-1 bg-primary text-white rounded hover:bg-accent transition"
+          >
+            View
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}

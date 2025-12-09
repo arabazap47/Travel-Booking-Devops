@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "name": "Sea View Resort",
+    "location": "Baga, Goa",
+    "price": 3500,
+    "rating": 4.4,
+    "image": "https://images.unsplash.com/photo-1501117716987-c8e6f8a2f7a4?auto=format&fit=crop&w=1000&q=80",
+    "description": "A pleasant resort close to the beach with amazing sea views."
+  },
+  {
+    "id": "2",
+    "name": "Hilltop Hotel",
+    "location": "Manali, Himachal",
+    "price": 4800,
+    "rating": 4.7,
+    "image": "https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&w=1000&q=80",
+    "description": "Peaceful stay overlooking the valley with excellent amenities."
+  },
+  {
+    "id": "3",
+    "name": "City Lights Inn",
+    "location": "Mumbai, Maharashtra",
+    "price": 3200,
+    "rating": 4.2,
+    "image": "https://images.unsplash.com/photo-1560347876-1bcd0b1d2043?auto=format&fit=crop&w=1000&q=80",
+    "description": "Modern hotel in the heart of the city, close to landmarks."
+  },
+  {
+    "id": "4",
+    "name": "Lakeview Retreat",
+    "location": "Udaipur, Rajasthan",
+    "price": 4100,
+    "rating": 4.5,
+    "image": "https://images.unsplash.com/photo-1533777324565-a040eb52f6c3?auto=format&fit=crop&w=1000&q=80",
+    "description": "Beautiful resort with serene lake views and calm environment."
+  },
+  {
+    "id": "5",
+    "name": "Forest Haven",
+    "location": "Coorg, Karnataka",
+    "price": 3900,
+    "rating": 4.6,
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
+    "description": "Stay amidst lush greenery and enjoy peaceful surroundings."
+  },
+  {
+    "id": "6",
+    "name": "Desert Mirage Hotel",
+    "location": "Jaisalmer, Rajasthan",
+    "price": 3700,
+    "rating": 4.3,
+    "image": "https://images.unsplash.com/photo-1560347876-2d8aee7c58c2?auto=format&fit=crop&w=1000&q=80",
+    "description": "Luxury desert stay with stunning sunset views."
+  },
+  {
+    "id": "7",
+    "name": "Backwater Bliss",
+    "location": "Alleppey, Kerala",
+    "price": 4200,
+    "rating": 4.7,
+    "image": "https://images.unsplash.com/photo-1549887534-1e00f84a8e49?auto=format&fit=crop&w=1000&q=80",
+    "description": "Enjoy a tranquil stay on the famous Kerala backwaters."
+  },
+  {
+    "id": "8",
+    "name": "Mountain Escape Lodge",
+    "location": "Shimla, Himachal",
+    "price": 4500,
+    "rating": 4.5,
+    "image": "https://images.unsplash.com/photo-1582719478172-2e1f3c9b45f3?auto=format&fit=crop&w=1000&q=80",
+    "description": "Cozy lodge with breathtaking views of the mountains."
+  },
+  {
+    "id": "9",
+    "name": "Urban Comfort Suites",
+    "location": "Bengaluru, Karnataka",
+    "price": 3600,
+    "rating": 4.4,
+    "image": "https://images.unsplash.com/photo-1560448204-2b2f7a5c9e6d?auto=format&fit=crop&w=1000&q=80",
+    "description": "Modern apartments with all amenities in the tech city."
+  },
+  {
+    "id": "10",
+    "name": "Coastal Breeze Hotel",
+    "location": "Puri, Odisha",
+    "price": 3300,
+    "rating": 4.3,
+    "image": "https://images.unsplash.com/photo-1582719478413-7fbe8b67847b?auto=format&fit=crop&w=1000&q=80",
+    "description": "Comfortable stay near the famous Puri beach with sea breeze."
+  }
+]
