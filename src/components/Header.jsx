@@ -32,7 +32,7 @@ export default function Header() {
             to="/search" 
             className="px-4 py-2 bg-primary text-white rounded-md hover:bg-accent transition"
           >
-            Search
+            Search Hotels
           </Link>
         </div>
       </div>
