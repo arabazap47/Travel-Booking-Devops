@@ -1,11 +1,11 @@
 import express from 'express'
 import fs from 'fs'
 import path from 'path'
-import cors from 'cors'  // <-- add this
+import cors from 'cors'  
 
 const app = express()
 app.use(express.json())
-app.use(cors())         // <-- add this
+app.use(cors())        
 
 const dataPath = path.resolve('mock/hotels.json')
 const hotels = JSON.parse(fs.readFileSync(dataPath, 'utf-8'))
