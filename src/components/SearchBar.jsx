@@ -111,8 +111,15 @@ export default function SearchBar({ initialCity = '' }) {
       {!loading && results.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {results.map((hotel) => (
-            <HotelCard key={hotel.id} hotel={hotel} />
-          ))}
+            <HotelCard
+            key={hotel.id}
+            hotel={hotel}
+            checkin={checkin}
+            checkout={checkout}
+            guests={guests}
+            />
+            ))}
+
         </div>
       )}
     </div>

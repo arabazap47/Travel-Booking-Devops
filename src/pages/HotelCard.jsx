@@ -1,7 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-export default function HotelCard({ hotel }) {
+export default function HotelCard({ hotel, checkin, checkout, guests }) {
+  const navigate = useNavigate()
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row">
       <div className="w-full md:w-48 h-40 bg-gray-200 flex-shrink-0">
@@ -20,12 +22,21 @@ export default function HotelCard({ hotel }) {
         <div className="mt-4 text-right">
           <div className="text-xl font-bold text-gray-800">₹{hotel.price}</div>
           <div className="text-sm text-gray-500">per night</div>
-          <Link
-            to={`/hotel/${hotel.id}`}
+          <button
+            onClick={() =>
+              navigate("/booking", {
+                state: {
+                  hotel,
+                  checkin,
+                  checkout,
+                  guests,
+                },
+              })
+            }
             className="inline-block mt-2 px-3 py-1 bg-primary text-white rounded hover:bg-accent transition"
           >
             View
-          </Link>
+          </button>
         </div>
       </div>
     </div>
