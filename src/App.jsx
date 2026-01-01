@@ -11,7 +11,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OwnerDashboard from "./pages/OwnerDashboard";
-import AdminDashboard from "./pages/AdminDashBoard";
+
 
 
 export default function App() {
