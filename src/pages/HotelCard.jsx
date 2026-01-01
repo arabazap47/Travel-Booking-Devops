@@ -22,21 +22,23 @@ export default function HotelCard({ hotel, checkin, checkout, guests }) {
         <div className="mt-4 text-right">
           <div className="text-xl font-bold text-gray-800">₹{hotel.price}</div>
           <div className="text-sm text-gray-500">per night</div>
-          <button
-            onClick={() =>
-              navigate("/booking", {
-                state: {
-                  hotel,
-                  checkin,
-                  checkout,
-                  guests,
-                },
-              })
-            }
-            className="inline-block mt-2 px-3 py-1 bg-primary text-white rounded hover:bg-accent transition"
-          >
-            View
-          </button>
+            <button
+  onClick={() =>
+    navigate(`/hotel/${hotel.id}`, {
+      state: {
+        checkin,
+        checkout,
+        guests
+      }
+    })
+  }
+  className="mt-2 px-3 py-1 bg-primary text-white rounded"
+>
+  View
+</button>
+
+
+
         </div>
       </div>
     </div>
