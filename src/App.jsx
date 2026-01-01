@@ -20,38 +20,35 @@ export default function App() {
       <Header />
 
       <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <Routes>
-          <Route path="/" element={<Login />} />
+          <Routes>
+  <Route path="/" element={<Login />} />
 
-          <Route
-            path="/user"
-            element={
-              <ProtectedRoute role="USER">
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/owner"
-            element={
-              <ProtectedRoute role="OWNER">
-                <OwnerDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/user"
-            element={
-              <ProtectedRoute role="ADMIN">
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
+  <Route path="/user" element={
+    <ProtectedRoute role="USER">
+      <Home />
+    </ProtectedRoute>
+  } />
 
-          <Route path="/search" element={<SearchResults /> } />
-          <Route path="/hotel/:id" element={<ProtectedRoute><HotelDetails /></ProtectedRoute>} />
-          <Route path="/booking/:id" element={<ProtectedRoute><Booking /></ProtectedRoute>} />
-        </Routes>
+  <Route path="/owner" element={
+    <ProtectedRoute role="OWNER">
+      <OwnerDashboard />
+    </ProtectedRoute>
+  } />
+
+  <Route path="/admin" element={
+    <ProtectedRoute role="ADMIN">
+      <AdminDashboard />
+    </ProtectedRoute>
+  } />
+
+  <Route path="/search" element={<SearchResults />} />
+
+  {/* PUBLIC ROUTES */}
+  <Route path="/hotel/:id" element={<HotelDetails />} />
+  <Route path="/booking/:id" element={<Booking />} />
+</Routes>
+
+
       </main>
 
       <Footer />
