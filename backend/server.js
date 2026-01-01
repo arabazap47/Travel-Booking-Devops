@@ -1,13 +1,15 @@
 import express from "express";
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.routes.js";
-import { authenticate } from "./middleware/auth.middleware.js";
-import { authorizeRoles } from "./middleware/role.middleware.js";
+import Hotel from './models/Hotel.js';
+
+// import { authenticate } from "./middleware/auth.middleware.js";
+// import { authorizeRoles } from "./middleware/role.middleware.js";
 
 dotenv.config();
 const app = express();
@@ -21,29 +23,79 @@ app.get("/", (req, res) => {
 });
 
 /* -------- PATH FIX FOR ES MODULE -------- */
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-const dataPath = path.join(__dirname, "..", "mock", "hotels.json");
-const hotels = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+// const dataPath = path.join(__dirname, "..", "mock", "hotels.json");
+// const hotels = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
 
 /* -------- HOTELS ROUTES -------- */
-app.get("/api/hotels", (req, res) => {
-  const city = (req.query.city || "").toLowerCase();
-  const items = hotels.filter(
-    (h) =>
-      h.location.toLowerCase().includes(city) ||
-      h.name.toLowerCase().includes(city) ||
-      city === ""
-  );
-  res.json(items);
+// app.get("/api/hotels", (req, res) => {
+//   const city = (req.query.city || "").toLowerCase();
+//   const items = hotels.filter(
+//     (h) =>
+//       h.location.toLowerCase().includes(city) ||
+//       h.name.toLowerCase().includes(city) ||
+//       city === ""
+//   );
+//   res.json(items);
+// });
+
+// app.get("/api/hotels/:id", (req, res) => {
+//   const h = hotels.find((x) => x.id === req.params.id);
+//   if (!h) return res.status(404).json({ error: "not found" });
+//   res.json(h);
+// });
+/* -------- HOTELS ROUTES (MongoDB) -------- */
+
+app.get("/api/hotels", async (req, res) => {
+  try {
+    const city = (req.query.city || "").toLowerCase();
+
+    const hotels = await Hotel.find({
+      $or: [
+        { location: { $regex: city, $options: "i" } },
+        { name: { $regex: city, $options: "i" } },
+      ],
+    });
+
+    const formatted = hotels.map(hotel => ({
+      id: hotel._id,
+      name: hotel.name,
+      location: hotel.location,
+      price: hotel.price,
+      rating: hotel.rating,
+      image: hotel.image,
+      description: hotel.description
+    }));
+
+    res.json(formatted);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
-app.get("/api/hotels/:id", (req, res) => {
-  const h = hotels.find((x) => x.id === req.params.id);
-  if (!h) return res.status(404).json({ error: "not found" });
-  res.json(h);
+
+app.get("/api/hotels/:id", async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    if (!hotel) return res.status(404).json({ error: "Not found" });
+
+    res.json({
+      id: hotel._id,
+      name: hotel.name,
+      location: hotel.location,
+      price: hotel.price,
+      rating: hotel.rating,
+      image: hotel.image,
+      description: hotel.description
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Invalid ID" });
+  }
 });
+
+
 
 /* -------- BOOKINGS (MOCK) -------- */
 app.post("/api/bookings", (req, res) => {
@@ -57,41 +109,41 @@ app.use("/api/auth", authRoutes);
 
 /* -------- ROLE-BASED DASHBOARDS -------- */
 
-app.get(
-  "/api/user/dashboard",
-  authenticate,
-  authorizeRoles("USER"),
-  (req, res) => {
-    res.json({
-      message: "Welcome USER",
-      user: req.user
-    });
-  }
-);
+// app.get(
+//   "/api/user/dashboard",
+//   authenticate,
+//   authorizeRoles("USER"),
+//   (req, res) => {
+//     res.json({
+//       message: "Welcome USER",
+//       user: req.user
+//     });
+//   }
+// );
 
-app.get(
-  "/api/owner/dashboard",
-  authenticate,
-  authorizeRoles("OWNER"),
-  (req, res) => {
-    res.json({
-      message: "Welcome OWNER",
-      user: req.user
-    });
-  }
-);
+// app.get(
+//   "/api/owner/dashboard",
+//   authenticate,
+//   authorizeRoles("OWNER"),
+//   (req, res) => {
+//     res.json({
+//       message: "Welcome OWNER",
+//       user: req.user
+//     });
+//   }
+// );
 
-app.get(
-  "/api/admin/dashboard",
-  authenticate,
-  authorizeRoles("ADMIN"),
-  (req, res) => {
-    res.json({
-      message: "Welcome ADMIN",
-      user: req.user
-    });
-  }
-);
+// app.get(
+//   "/api/admin/dashboard",
+//   authenticate,
+//   authorizeRoles("ADMIN"),
+//   (req, res) => {
+//     res.json({
+//       message: "Welcome ADMIN",
+//       user: req.user
+//     });
+//   }
+// );
 
 /* -------- DATABASE -------- */
 mongoose

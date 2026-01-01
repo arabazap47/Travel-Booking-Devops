@@ -10,7 +10,7 @@ import Booking from "./pages/Booking";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
-import OwnerDashboard from "./pages/OwnerDashboard";
+// import OwnerDashboard from "./pages/OwnerDashboard";
 
 
 
@@ -29,7 +29,7 @@ export default function App() {
     </ProtectedRoute>
   } />
 
-  <Route path="/owner" element={
+  {/* <Route path="/owner" element={
     <ProtectedRoute role="OWNER">
       <OwnerDashboard />
     </ProtectedRoute>
@@ -39,7 +39,7 @@ export default function App() {
     <ProtectedRoute role="ADMIN">
       <AdminDashboard />
     </ProtectedRoute>
-  } />
+  } /> */}
 
   <Route path="/search" element={<SearchResults />} />
 
