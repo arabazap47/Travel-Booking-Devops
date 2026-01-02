@@ -1,5 +1,5 @@
 import Booking from "../models/Booking.js";
-import { sendBookingEmail } from "../config/awsSES.js";
+import { sendBookingEmail } from "../controllers/awsSES.js";
 
 export const createBooking = async (req, res) => {
   try {
