@@ -17,25 +17,20 @@ export default function SearchBar({ initialCity = '' }) {
 
   // Live search: fetch hotels as user types
   useEffect(() => {
-    if (city.trim() === '') {
-      setResults([])
-      setError('')
-      return
-    }
+  if (!city.trim()) return;
 
-    setLoading(true)
-     api
-      .get(`/hotels?city=${encodeURIComponent(city)}`)
-      .then((res) => {
+  setLoading(true);
+  setError('');
 
-    
-        setResults(res.data)
-        if (res.data.length === 0) setError('No results found.')
-        else setError('')
-      })
-      .catch(() => setError('Failed to fetch hotels.'))
-      .finally(() => setLoading(false))
-  }, [city])
+  api.get(`/hotels?city=${encodeURIComponent(city)}`)
+    .then(res => {
+      setResults(res.data);
+      if (res.data.length === 0) setError('No results found');
+    })
+    .catch(() => setError('Failed to fetch hotels'))
+    .finally(() => setLoading(false));
+}, [city]);
+
 
   // Handle full form submit
   const handleSubmit = (e) => {
