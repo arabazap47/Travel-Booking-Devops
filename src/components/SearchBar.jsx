@@ -110,7 +110,7 @@ export default function SearchBar({ initialCity = '' }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {results.map((hotel) => (
             <HotelCard
-            key={hotel.id}
+            key={hotel._id}
             hotel={hotel}
             checkin={checkin}
             checkout={checkout}

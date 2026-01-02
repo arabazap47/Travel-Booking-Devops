@@ -11,24 +11,39 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+/* ============================
+   MIDDLEWARE
+============================ */
 
+// Allow frontend access
+app.use(
+  cors({
+    origin: "*", // later you can restrict to EC2 IP or domain
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+// Body parsers
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Health check
+/* ============================
+   HEALTH CHECK
+============================ */
+
 app.get("/", (req, res) => {
-  res.send("Backend is running");
+  res.send("✅ Backend is running");
 });
 
 app.get("/health", (req, res) => {
-  res.json({ status: "OK" });
+  res.status(200).json({ status: "OK" });
 });
 
-// Hotels
+/* ============================
+   HOTEL ROUTES
+============================ */
+
 app.get("/api/hotels", async (req, res) => {
   try {
     const city = (req.query.city || "").toLowerCase();
@@ -36,20 +51,23 @@ app.get("/api/hotels", async (req, res) => {
     const hotels = await Hotel.find({
       $or: [
         { location: { $regex: city, $options: "i" } },
-        { name: { $regex: city, $options: "i" } },
-      ],
+        { name: { $regex: city, $options: "i" } }
+      ]
     });
 
-    res.json(hotels.map(h => ({
-      id: h._id,
-      name: h.name,
-      location: h.location,
-      price: h.price,
-      rating: h.rating,
-      image: h.image,
-      description: h.description
-    })));
-  } catch (err) {
+    res.json(
+      hotels.map(h => ({
+        _id: h._id,
+        name: h.name,
+        location: h.location,
+        price: h.price,
+        rating: h.rating,
+        image: h.image,
+        description: h.description
+      }))
+    );
+  } catch (error) {
+    console.error("Hotel fetch error:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
@@ -57,10 +75,12 @@ app.get("/api/hotels", async (req, res) => {
 app.get("/api/hotels/:id", async (req, res) => {
   try {
     const hotel = await Hotel.findById(req.params.id);
-    if (!hotel) return res.status(404).json({ error: "Not found" });
+
+    if (!hotel)
+      return res.status(404).json({ error: "Hotel not found" });
 
     res.json({
-      id: hotel._id,
+      _id: hotel._id,
       name: hotel.name,
       location: hotel.location,
       price: hotel.price,
@@ -68,26 +88,46 @@ app.get("/api/hotels/:id", async (req, res) => {
       image: hotel.image,
       description: hotel.description
     });
-  } catch {
+  } catch (err) {
     res.status(500).json({ error: "Invalid ID" });
   }
 });
+
+/* ============================
+   BOOKINGS
+============================ */
 
 app.post("/api/bookings", (req, res) => {
   const ref = "BK" + Math.random().toString(36).slice(2, 9).toUpperCase();
   res.json({ ref });
 });
 
+/* ============================
+   AUTH ROUTES
+============================ */
+
 app.use("/api/auth", authRoutes);
 app.use("/api", bookingRoutes);
 
-// DB
+/* ============================
+   DATABASE
+============================ */
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
-  .catch(err => console.error(err));
+  .catch((err) => {
+    console.error("❌ MongoDB Error:", err);
+    process.exit(1);
+  });
+
+/* ============================
+   SERVER START
+============================ */
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () =>
-  console.log(`🚀 Backend running on port ${PORT}`)
-);
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Backend running on port ${PORT}`);
+});
+
