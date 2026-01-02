@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import axios from 'axios'
+import api from '../services/api'
 import BookingForm from '../components/BookingForm'
 
 export default function Booking() {
@@ -14,7 +14,7 @@ export default function Booking() {
   useEffect(() => {
     if (!id) return
 
-    axios.get(`/api/api/hotels/${id}`)
+    api.get(`/hotels?city=${encodeURIComponent(id)}`)
       .then(res => setHotel(res.data))
       .catch(() => setHotel(null))
   }, [id])

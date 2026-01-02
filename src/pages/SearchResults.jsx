@@ -74,18 +74,14 @@ export default function SearchBar({ initialCity = '' }) {
     }
 
     setLoading(true)
-<<<<<<< HEAD
+    setError('')
+
 
     api.get(`/hotels?city=${encodeURIComponent(city)}`)
       .then(res => {
         setResults(res.data)
-=======
-    setError('')
-    axios
-      .get(`/api/api/hotels?city=${encodeURIComponent(city)}`)
-      .then((res) => {
-        setHotels(res.data)
->>>>>>> 2d04dc2 (Fix API base URL and frontend fetch logic)
+
+    
         if (res.data.length === 0) setError('No results found.')
         else setError('')
       })

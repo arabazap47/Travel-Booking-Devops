@@ -20,14 +20,11 @@ export default function HotelDetails() {
     setLoading(true)
     setError('')
 
-<<<<<<< HEAD
+
     api
       .get(`/hotels/${id}`)
       .then((res) => setHotel(res.data))
-=======
-    axios.get(`/api/api/hotels/${id}`)
-      .then(res => setHotel(res.data))
->>>>>>> 2d04dc2 (Fix API base URL and frontend fetch logic)
+
       .catch(() => setError('Failed to load hotel details'))
       .finally(() => setLoading(false))
   }, [id])
