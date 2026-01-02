@@ -4,21 +4,31 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 import authRoutes from "./routes/auth.routes.js";
-import Hotel from './models/Hotel.js';
 import bookingRoutes from "./routes/bookingRoutes.js";
+import Hotel from "./models/Hotel.js";
 
 dotenv.config();
+
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 
-/* -------- ROOT TEST ROUTE (IMPORTANT) -------- */
+// Health check
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
 
+app.get("/health", (req, res) => {
+  res.json({ status: "OK" });
+});
 
+// Hotels
 app.get("/api/hotels", async (req, res) => {
   try {
     const city = (req.query.city || "").toLowerCase();
@@ -30,22 +40,19 @@ app.get("/api/hotels", async (req, res) => {
       ],
     });
 
-    const formatted = hotels.map(hotel => ({
-      id: hotel._id,
-      name: hotel.name,
-      location: hotel.location,
-      price: hotel.price,
-      rating: hotel.rating,
-      image: hotel.image,
-      description: hotel.description
-    }));
-
-    res.json(formatted);
+    res.json(hotels.map(h => ({
+      id: h._id,
+      name: h.name,
+      location: h.location,
+      price: h.price,
+      rating: h.rating,
+      image: h.image,
+      description: h.description
+    })));
   } catch (err) {
     res.status(500).json({ error: "Server error" });
   }
 });
-
 
 app.get("/api/hotels/:id", async (req, res) => {
   try {
@@ -61,29 +68,26 @@ app.get("/api/hotels/:id", async (req, res) => {
       image: hotel.image,
       description: hotel.description
     });
-  } catch (err) {
+  } catch {
     res.status(500).json({ error: "Invalid ID" });
   }
 });
 
-/* -------- BOOKINGS (MOCK) -------- */
 app.post("/api/bookings", (req, res) => {
   const ref = "BK" + Math.random().toString(36).slice(2, 9).toUpperCase();
   res.json({ ref });
 });
 
-/* -------- AUTH ROUTES -------- */
 app.use("/api/auth", authRoutes);
 app.use("/api", bookingRoutes);
-/* -------- ROLE-BASED DASHBOARDS -------- */
 
-/* -------- DATABASE -------- */
+// DB
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.error(err));
 
-/* -------- SERVER -------- */
-app.listen(5000, () =>
-  console.log("Backend server running on http://localhost:5000")
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () =>
+  console.log(`🚀 Backend running on port ${PORT}`)
 );
