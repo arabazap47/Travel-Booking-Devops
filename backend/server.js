@@ -7,6 +7,8 @@ import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.routes.js";
 import Hotel from './models/Hotel.js';
+import bookingRoutes from "./routes/bookingRoutes.js";
+
 
 // import { authenticate } from "./middleware/auth.middleware.js";
 // import { authorizeRoles } from "./middleware/role.middleware.js";
@@ -105,8 +107,7 @@ app.post("/api/bookings", (req, res) => {
 
 /* -------- AUTH ROUTES -------- */
 app.use("/api/auth", authRoutes);
-
-
+app.use("/api", bookingRoutes);
 /* -------- ROLE-BASED DASHBOARDS -------- */
 
 // app.get(
