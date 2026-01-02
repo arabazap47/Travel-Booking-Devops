@@ -14,7 +14,7 @@ export default function Booking() {
   useEffect(() => {
     if (!id) return
 
-    axios.get(`http://localhost:5000/api/hotels/${id}`)
+    axios.get(`/api/api/hotels/${id}`)
       .then(res => setHotel(res.data))
       .catch(() => setHotel(null))
   }, [id])
