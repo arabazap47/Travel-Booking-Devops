@@ -17,17 +17,18 @@ export default function HotelDetails() {
   const [guests, setGuests] = useState(location.state?.guests || 1)
 
   useEffect(() => {
-    setLoading(true)
-    setError('')
+  if (!id) return;
 
+  setLoading(true);
+  api.get(`/hotels/${id}`)
+    .then(res => setHotel(res.data))
+    .catch(err => {
+      console.error(err);
+      setError("Failed to load hotel details");
+    })
+    .finally(() => setLoading(false));
+}, [id]);
 
-    api
-      .get(`/hotels/${id}`)
-      .then((res) => setHotel(res.data))
-
-      .catch(() => setError('Failed to load hotel details'))
-      .finally(() => setLoading(false))
-  }, [id])
 
   const handleBooking = () => {
     if (!checkin || !checkout) {

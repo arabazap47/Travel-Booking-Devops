@@ -41,7 +41,7 @@ app.get("/api/hotels", async (req, res) => {
     });
 
     res.json(hotels.map(h => ({
-      id: h._id,
+      _id: h._id,
       name: h.name,
       location: h.location,
       price: h.price,

@@ -1,9 +1,16 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+console.log("Hotel data:", hotel);
 
 export default function HotelCard({ hotel, checkin, checkout, guests }) {
   const navigate = useNavigate()
+  const hotelId = hotel?._id || hotel?.id;
 
+  if (!hotelId) {
+    console.error("Hotel ID missing:", hotel);
+    return null;
+  }
+  
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row">
       <div className="w-full md:w-48 h-40 bg-gray-200 flex-shrink-0">
@@ -24,7 +31,7 @@ export default function HotelCard({ hotel, checkin, checkout, guests }) {
           <div className="text-sm text-gray-500">per night</div>
             <button
   onClick={() =>
-    navigate(`/hotel/${hotel.id}`, {
+    navigate(`/hotel/${hotelId}`, {
       state: {
         checkin,
         checkout,
