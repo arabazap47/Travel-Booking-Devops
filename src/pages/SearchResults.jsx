@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import axios from 'axios'
+import api from "../services/api"
+
 import HotelCard from '../pages/HotelCard'
 
 export default function SearchResults() {
@@ -17,8 +18,8 @@ export default function SearchResults() {
   useEffect(() => {
     setLoading(true)
     setError('')
-    axios
-      .get(`http://localhost:5000/api/hotels?city=${encodeURIComponent(city)}`)
+    api
+      .get(`/hotels?city=${encodeURIComponent(city)}`)
       .then((res) => {
         setHotels(res.data)
         if (res.data.length === 0) setError('No results found.')
