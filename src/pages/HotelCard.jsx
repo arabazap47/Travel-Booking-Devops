@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-console.log("Hotel data:", hotel);
 
 export default function HotelCard({ hotel, checkin, checkout, guests }) {
   const navigate = useNavigate()

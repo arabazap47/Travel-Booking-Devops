@@ -10,26 +10,35 @@ export default function Booking() {
   const { checkin, checkout, guests } = location.state || {}
 
   const [hotel, setHotel] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!id) return
 
-    api.get(`/hotels?city=${encodeURIComponent(id)}`)
+    api.get(`/hotels/${id}`)
       .then(res => setHotel(res.data))
-      .catch(() => setHotel(null))
+      .catch(err => {
+        console.error(err)
+        setHotel(null)
+      })
+      .finally(() => setLoading(false))
   }, [id])
 
-  // ⛔ Prevent crash
+  // Safety checks
   if (!checkin || !checkout) {
     return (
-      <div className="p-6 text-center">
+      <div className="p-6 text-center text-red-600">
         Please select check-in and check-out dates.
       </div>
     )
   }
 
-  if (!hotel) {
+  if (loading) {
     return <div className="p-6 text-center">Loading booking details...</div>
+  }
+
+  if (!hotel) {
+    return <div className="p-6 text-center">Hotel not found.</div>
   }
 
   return (
@@ -54,3 +63,4 @@ export default function Booking() {
     </div>
   )
 }
+
