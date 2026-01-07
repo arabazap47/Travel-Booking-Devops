@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import api from "../services/api";
+import { getUserFromToken } from "../utils/auth";
+
+
 
 export default function BookingForm({ hotel, checkin, checkout, guests }) {
+  
   if (!hotel) {
     return <div className="p-6 text-gray-500">Loading...</div>;
   }
-
   const [paymentMethod, setPaymentMethod] = useState("Google Pay");
   const [showPopup, setShowPopup] = useState(false);
 
@@ -22,9 +26,42 @@ export default function BookingForm({ hotel, checkin, checkout, guests }) {
 
   const bookingId = `BK${Math.floor(100000 + Math.random() * 900000)}`;
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
+  try {
+    const user = getUserFromToken(); 
+    const paymentSuccess = true;
+    if (!paymentSuccess) {
+      alert("Payment failed");
+      return;
+    }
+
+    if (!user?.email) {
+      alert("User email missing. Please logout and login again.");
+      return;
+    }
+
+    await api.post("/book", {
+      email: user.email, // ✅ THIS IS THE FIX
+      hotel: {
+        name: hotel.name,
+        location: hotel.location,
+        price: hotel.price,
+      },
+      checkin,
+      checkout,
+      guests,
+      amount: totalAmount,
+      paymentMethod,
+    });
+
     setShowPopup(true);
-  };
+  } catch (error) {
+    console.error("Booking failed:", error);
+    alert("Booking failed. Please try again.");
+  }
+};
+
+
   const paymentMethods = [
   {
     name: "Google Pay",
@@ -150,7 +187,7 @@ export default function BookingForm({ hotel, checkin, checkout, guests }) {
             </p>
 
             <button
-              onClick={() => window.location.href = "/"}
+              onClick={() => window.location.href = "/user"}
               className="w-full py-2 bg-green-600 text-white rounded"
             >
               Go to Home

@@ -92,10 +92,16 @@ if (!user) {
 
 
   const token = jwt.sign(
-  { id: user._id, role: user.role, name: user.name },
+  {
+    id: user._id,
+    email: user.emailOrMobile,   // ✅ ADD THIS
+    role: user.role,
+    name: user.name
+  },
   process.env.JWT_SECRET,
-  { expiresIn: "7d" }
-);
+  { expiresIn: "1d" }
+);  
+
 
 
   await Otp.deleteMany({ emailOrMobile });

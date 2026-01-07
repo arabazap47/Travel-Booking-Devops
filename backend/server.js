@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import Hotel from "./models/Hotel.js";
+import upload from "./middleware/upload.js";
+
 
 dotenv.config();
 
@@ -92,6 +94,36 @@ app.get("/api/hotels/:id", async (req, res) => {
     res.status(500).json({ error: "Invalid ID" });
   }
 });
+
+/*=================================
+Clodinary Implementation
+ ===================================*/
+app.post("/api/hotels", upload.single("image"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "Image is required" });
+    }
+
+    const hotel = new Hotel({
+      name: req.body.name,
+      location: req.body.location,
+      price: req.body.price,
+      rating: req.body.rating,
+      description: req.body.description,
+      image: req.file.path, // Cloudinary URL
+    });
+
+    await hotel.save();
+
+    res.status(201).json(hotel);
+  } catch (error) {
+    console.error("Hotel create error:", error);
+    res.status(500).json({ error: "Failed to create hotel" });
+  }
+});
+
+
+
 
 /* ============================
    BOOKINGS
