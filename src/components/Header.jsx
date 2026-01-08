@@ -33,12 +33,12 @@ export default function Header() {
             Home
           </button>
 
-          <Link
+          {/* <Link
             to="/search"
             className="px-4 py-2 bg-primary text-white rounded-md hover:bg-accent transition"
           >
             Search hotel
-          </Link>
+          </Link> */}
 
           {/* Profile Dropdown */}
           {user && (
