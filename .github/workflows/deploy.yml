@@ -1,0 +1,66 @@
+# name: React CI Pipeline
+
+# on:
+#   push:
+#     branches:
+#       - main
+#       - master1
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout Code
+#         uses: actions/checkout@v4
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 18
+
+#       - name: Install Dependencies
+#         run: npm install
+
+#       - name: Build React App
+#         run: npm run build
+
+#       - name: Build Docker Image
+#         run: docker build -t travel-booking-devops .
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ${{ secrets.APP_DIR }}
+            git pull origin main
+
+            echo "🚀 Backend setup"
+            cd backend
+            npm install
+            pm2 restart travelly-backend || pm2 start server.js --name travelly-backend
+
+            echo "🎨 Frontend build"
+            cd ../frontend
+            npm install
+            npm run build
