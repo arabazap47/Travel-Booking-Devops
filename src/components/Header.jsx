@@ -56,7 +56,7 @@ export default function Header() {
               {open && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border z-50">
                   <div className="px-4 py-3 border-b">
-                    <p className="text-sm text-gray-500">Logged in as</p>
+                    <p className="text-sm text-gray-500">Logged in as-</p>
                     <p className="font-semibold text-gray-800">
                       {user.name || "User"}
                     </p>
