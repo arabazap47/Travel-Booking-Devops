@@ -30,7 +30,8 @@ export const sendBookingEmail = async (to, booking) => {
       `,
     });
 
-    console.log("✅ Email sent:", info.messageId);
+    console.log("✅ Booking email sent successfully");
+console.log("📨 Message ID:", info.messageId);
 
   } catch (error) {
     console.error("❌ SES email error:", error);
