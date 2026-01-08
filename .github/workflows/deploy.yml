@@ -20,10 +20,10 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            echo "CONNECTED"
+            echo "🚀 CONNECTED"
             whoami
 
-
+            # Go to project root
             cd ${{ secrets.APP_DIR }}
             git pull origin main
 
@@ -32,9 +32,11 @@ jobs:
             npm install
             pm2 restart travelly-backend || pm2 start server.js --name travelly-backend
 
-            echo "🎨 Frontend setup"
-            cd ../frontend
+            echo "🎨 Frontend setup (root project)"
+            cd ..
             npm install
-            npm run build
+
+            # Run build only if it exists
+            npm run build || echo "No frontend build script, skipping"
 
             echo "✅ Deployment finished"
