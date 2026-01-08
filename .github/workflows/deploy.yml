@@ -10,29 +10,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Deploy to EC2
-  uses: appleboy/ssh-action@v1.0.3
-  with:
-    host: ${{ secrets.EC2_HOST }}
-    username: ${{ secrets.EC2_USER }}
-    key: ${{ secrets.EC2_SSH_KEY }}
-    port: 22
-    script: |
-      echo "🚀 Connecting to EC2"
-      cd ${{ secrets.APP_DIR }}
-      git pull origin main
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          timeout: 30s
+          command_timeout: 10m
+          script: |
+            echo "🚀 Connecting to EC2"
 
-      echo "📦 Backend setup"
-      cd backend
-      npm install
-      pm2 restart travelly-backend || pm2 start server.js --name travelly-backend
+            cd ${{ secrets.APP_DIR }}
+            git pull origin main
 
-      echo "🎨 Frontend setup"
-      cd ../frontend
-      npm install
-      npm run build
+            echo "📦 Backend setup"
+            cd backend
+            npm install
+            pm2 restart travelly-backend || pm2 start server.js --name travelly-backend
 
-      echo "✅ Deployment finished"
+            echo "🎨 Frontend setup"
+            cd ../frontend
+            npm install
+            npm run build
+
+            echo "✅ Deployment finished"
