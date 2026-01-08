@@ -30,6 +30,7 @@
 
 #       - name: Build Docker Image
 #         run: docker build -t travel-booking-devops .
+
 name: Deploy to EC2
 
 on:
@@ -42,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Deploy to EC2
@@ -52,15 +53,19 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            echo "🚀 Connecting to EC2"
+
             cd ${{ secrets.APP_DIR }}
             git pull origin main
 
-            echo "🚀 Backend setup"
+            echo "📦 Backend setup"
             cd backend
             npm install
             pm2 restart travelly-backend || pm2 start server.js --name travelly-backend
 
-            echo "🎨 Frontend build"
+            echo "🎨 Frontend setup"
             cd ../frontend
             npm install
             npm run build
+
+            echo "✅ Deployment finished"
