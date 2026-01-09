@@ -217,7 +217,14 @@ return (
 
     {/* Login card */}
     <div className="relative z-10 flex items-center justify-center min-h-screen">
-      <div className="bg-white/90 backdrop-blur-md p-6 rounded-xl shadow-xl w-96">
+      <div className="bg-white/25
+          backdrop-blur-xl
+          rounded-2xl
+          shadow-2xl
+          border border-white/30
+          p-8
+          w-full
+          max-w-md">
         <h2 className="text-2xl font-bold mb-2 text-center text-gray-800">
           Welcome Back
         </h2>
