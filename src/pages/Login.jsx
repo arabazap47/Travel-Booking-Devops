@@ -208,16 +208,29 @@ React.useEffect(() => {
 //     </div>
 //   );
 return (
-  <div className="fixed inset-0 w-screen h-screen flex overflow-hidden">
-    
-    {/* LEFT SIDE – LOGIN */}
-    <div className="w-full lg:w-[40%] h-full flex items-center justify-center bg-gray-50 px-8">
-      <div className="w-full max-w-md">
-        <h2 className="text-3xl font-bold mb-2 text-gray-800">
+  <div className="relative min-h-screen overflow-hidden">
+    {/* Background carousel */}
+    {images.map((img, index) => (
+      <div
+        key={index}
+        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+          index === currentImage ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ backgroundImage: `url(${img})` }}
+      />
+    ))}
+
+    {/* Dark overlay */}
+    <div className="absolute inset-0 bg-black/60"></div>
+
+    {/* Login card */}
+    <div className="relative z-10 flex items-center justify-center min-h-screen">
+      <div className="bg-white/90 backdrop-blur-md p-6 rounded-xl shadow-xl w-96">
+        <h2 className="text-2xl font-bold mb-2 text-center text-gray-800">
           Welcome Back
         </h2>
-        <p className="text-gray-500 mb-6">
-          Login using OTP to continue
+        <p className="text-sm text-center text-gray-500 mb-6">
+          Login using OTP
         </p>
 
         {step === 1 && (
@@ -227,7 +240,7 @@ return (
               placeholder="Enter email"
               value={emailOrMobile}
               onChange={(e) => setEmailOrMobile(e.target.value)}
-              className="w-full p-3 border rounded mb-4 focus:ring-2 focus:ring-primary"
+              className="w-full p-2 border rounded mb-4 focus:ring-2 focus:ring-primary"
             />
 
             {error && (
@@ -237,7 +250,7 @@ return (
             <button
               onClick={sendOtp}
               disabled={loading}
-              className="w-full bg-primary text-white py-3 rounded hover:opacity-90 disabled:opacity-60"
+              className="w-full bg-primary text-white py-2 rounded flex justify-center items-center gap-2 hover:opacity-90 disabled:opacity-60"
             >
               {loading ? "Sending OTP..." : "Send OTP"}
             </button>
@@ -263,7 +276,7 @@ return (
               placeholder="Enter OTP"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              className="w-full p-3 border rounded mb-3 focus:ring-2 focus:ring-primary"
+              className="w-full p-2 border rounded mb-3 focus:ring-2 focus:ring-primary"
             />
 
             {isNewUser && (
@@ -272,7 +285,7 @@ return (
                 placeholder="Your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full p-3 border rounded mb-4"
+                className="w-full p-2 border rounded mb-4 focus:ring-2 focus:ring-primary"
               />
             )}
 
@@ -283,7 +296,7 @@ return (
             <button
               onClick={verifyOtp}
               disabled={loadingVerify}
-              className="w-full bg-primary text-white py-3 rounded hover:opacity-90 disabled:opacity-60"
+              className="w-full bg-primary text-white py-2 rounded hover:opacity-90 disabled:opacity-60"
             >
               {loadingVerify ? "Verifying..." : "Verify & Login"}
             </button>
@@ -291,33 +304,6 @@ return (
         )}
       </div>
     </div>
-
-    {/* RIGHT SIDE – CAROUSEL */}
-    <div className="hidden lg:block w-[60%] h-full relative">
-      {images.map((img, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-            index === currentImage ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ backgroundImage: `url(${img.url})` }}
-        />
-      ))}
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
-
-      {/* Text Content */}
-      <div className="absolute bottom-20 left-12 text-white max-w-md">
-        <h2 className="text-4xl font-bold mb-2">
-          {images[currentImage].title}
-        </h2>
-        <p className="text-lg opacity-90">
-          {images[currentImage].subtitle}
-        </p>
-      </div>
-    </div>
-
   </div>
 );
 
