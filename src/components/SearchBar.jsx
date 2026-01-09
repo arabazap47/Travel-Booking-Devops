@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import api from '../services/api'
 import HotelCard from '../pages/HotelCard'
-import { useSearchParams } from "react-router-dom"
-
-
 
 export default function SearchBar({ initialCity = '' }) {
   const [city, setCity] = useState(initialCity)
@@ -14,18 +12,8 @@ export default function SearchBar({ initialCity = '' }) {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [searchParams, setSearchParams] = useSearchParams()
-
-
 
   const navigate = useNavigate()
-
-  useEffect(() => {
-  const cityFromUrl = searchParams.get("city")
-  if (cityFromUrl) {
-    setCity(cityFromUrl)
-  }
-}, [searchParams])
 
   // Live search: fetch hotels as user types
   useEffect(() => {
@@ -47,8 +35,8 @@ export default function SearchBar({ initialCity = '' }) {
   // Handle full form submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    setSearchParams({ city, checkin, checkout, guests })
-
+    const params = new URLSearchParams({ city, checkin, checkout, guests })
+    navigate(`/search?${params.toString()}`)
   }
 
   return (
@@ -105,14 +93,14 @@ export default function SearchBar({ initialCity = '' }) {
         </div> */}
 
         {/* Submit button */}
-        <div className="md:col-span-5 md:justify-self-end">
+        {/* <div className="md:col-span-5 md:justify-self-end">
           <button
             type="submit"
             className="w-full md:w-auto px-6 py-2 bg-accent text-white font-semibold rounded-md hover:bg-primary transition"
           >
             Search
           </button>
-        </div>
+        </div> */}
       </form>
 
       {/* Live search results */}
