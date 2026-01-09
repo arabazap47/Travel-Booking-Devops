@@ -44,6 +44,8 @@ export default function HotelDetails() {
   if (loading) return <div className="p-6 text-center">Loading...</div>
   if (error) return <div className="p-6 text-red-600">{error}</div>
   if (!hotel) return <div className="p-6 text-gray-600">Hotel not found.</div>
+  const today = new Date().toISOString().split('T')[0]  
+
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-7xl mx-0 px-2 py-4">
@@ -63,8 +65,27 @@ export default function HotelDetails() {
         </div>
 
         <div className="mt-4 space-y-3">
-          <input type="date" value={checkin} onChange={e => setCheckin(e.target.value)} className="w-full border p-2 rounded" />
-          <input type="date" value={checkout} onChange={e => setCheckout(e.target.value)} className="w-full border p-2 rounded" />
+          <input
+  type="date"
+  value={checkin}
+  min={today}
+  onChange={e => {
+    setCheckin(e.target.value)
+    if (checkout && e.target.value > checkout) {
+      setCheckout('')
+    }
+  }}
+  className="w-full border p-2 rounded"
+/>
+
+          <input
+  type="date"
+  value={checkout}
+  min={checkin || today}
+  onChange={e => setCheckout(e.target.value)}
+  className="w-full border p-2 rounded"
+/>
+
           <input type="number" min="1" value={guests} onChange={e => setGuests(e.target.value)} className="w-full border p-2 rounded" />
         </div>
 
