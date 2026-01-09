@@ -97,21 +97,10 @@ setTimeout(() => {
 };
 
 const images = [
-  {
-    url: "https://images.unsplash.com/photo-1501117716987-c8e1ecb210d1",
-    title: "Luxury Stays",
-    subtitle: "Experience premium hotels worldwide",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
-    title: "Best Prices",
-    subtitle: "Affordable stays for every trip",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1505691938895-1758d7feb511",
-    title: "Comfort & Style",
-    subtitle: "Relax in handpicked hotels",
-  },
+  "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+  "https://images.unsplash.com/photo-1501117716987-c8e1ecb210d1",
+  "https://images.unsplash.com/photo-1505691938895-1758d7feb511",
+  "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
 ];
 
 const [currentImage, setCurrentImage] = useState(0);
@@ -123,6 +112,9 @@ React.useEffect(() => {
 
   return () => clearInterval(interval);
 }, []);
+
+
+
 
 
 
