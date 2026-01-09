@@ -82,6 +82,7 @@ export default function HotelDetails() {
   type="date"
   value={checkout}
   min={checkin || today}
+  disabled={!checkin}
   onChange={e => setCheckout(e.target.value)}
   className="w-full border p-2 rounded"
 />
