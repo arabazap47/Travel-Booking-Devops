@@ -100,7 +100,7 @@ const images = [
   "https://images.unsplash.com/photo-1566073771259-6a8506099945",
   "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1920&q=80",
   "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1920&q=80",
-  "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+  "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4"
 ];
 
 const [currentImage, setCurrentImage] = useState(0);
