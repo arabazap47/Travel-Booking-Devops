@@ -97,85 +97,185 @@ setTimeout(() => {
 };
 
 
-  return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-md w-96">
-        <h2 className="text-xl font-bold mb-4 text-center">LogIn</h2>
+//   return (
+//     <div className="flex items-center justify-center h-screen bg-gray-100">
+//       <div className="bg-white p-6 rounded-lg shadow-md w-96">
+//         <h2 className="text-xl font-bold mb-4 text-center">LogIn</h2>
 
-       {step === 1 && (
-          <>
-            <input
-              type="email"
-              placeholder="Enter email"
-              value={emailOrMobile}
-              onChange={(e) => setEmailOrMobile(e.target.value)}
-              className="w-full p-2 border rounded mb-4"
-            />
+//        {step === 1 && (
+//           <>
+//             <input
+//               type="email"
+//               placeholder="Enter email"
+//               value={emailOrMobile}
+//               onChange={(e) => setEmailOrMobile(e.target.value)}
+//               className="w-full p-2 border rounded mb-4"
+//             />
 
-            <button
-              onClick={sendOtp}
-              disabled={loading}
-              className="w-full bg-primary text-white py-2 rounded flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <>
-                  <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
-                  Sending OTP...
-                </>
-              ) : (
-                "Send OTP"
-              )}
-            </button>
-          </>
-        )}
+//             <button
+//               onClick={sendOtp}
+//               disabled={loading}
+//               className="w-full bg-primary text-white py-2 rounded flex items-center justify-center gap-2"
+//             >
+//               {loading ? (
+//                 <>
+//                   <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+//                   Sending OTP...
+//                 </>
+//               ) : (
+//                 "Send OTP"
+//               )}
+//             </button>
+//           </>
+//         )}
 
-        {step === 2 && (
-  <>
-  {/* Masked email + change button */}
-    <div className="flex items-center justify-between mb-4">
-      <p className="text-sm text-gray-600">
-        {maskEmail(emailOrMobile)}
+//         {step === 2 && (
+//   <>
+//   {/* Masked email + change button */}
+//     <div className="flex items-center justify-between mb-4">
+//       <p className="text-sm text-gray-600">
+//         {maskEmail(emailOrMobile)}
+//       </p>
+//       <button
+//         onClick={changeEmail}
+//         className="text-sm text-primary hover:underline"
+//       >
+//         Change
+//       </button>
+//     </div>
+//     <input
+//       type="text"
+//       placeholder="Enter OTP"
+//       value={otp}
+//       onChange={(e) => setOtp(e.target.value)}
+//       className="w-full p-2 border rounded mb-3"
+//     />
+
+//     {isNewUser && (
+//       <input
+//         type="text"
+//         placeholder="Your Name"
+//         value={name}
+//         onChange={(e) => setName(e.target.value)}
+//         className="w-full p-2 border rounded mb-4"
+//       />
+//     )}
+//     {error && (
+//   <p className="text-red-500 text-sm mb-3">{error}</p>
+// )}
+
+//     <button
+//   onClick={verifyOtp}
+//   disabled={loadingVerify}
+//   className="w-full bg-primary text-white py-2 rounded disabled:opacity-60"
+// >
+//   {loadingVerify ? "Verifying..." : "Verify & Login"}
+// </button>
+
+//   </>
+// )}
+
+//       </div>
+//     </div>
+//   );
+return (
+  <div
+    className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
+    style={{
+      backgroundImage:
+        "url('https://images.unsplash.com/photo-1501117716987-c8e1ecb210d1')",
+    }}
+  >
+    {/* Dark overlay */}
+    <div className="absolute inset-0 bg-black/50"></div>
+
+    {/* Login Card */}
+    <div className="relative z-10 bg-white/90 backdrop-blur-md p-6 rounded-xl shadow-xl w-96">
+      <h2 className="text-2xl font-bold mb-2 text-center text-gray-800">
+        Welcome Back
+      </h2>
+      <p className="text-sm text-center text-gray-500 mb-6">
+        Login using OTP
       </p>
-      <button
-        onClick={changeEmail}
-        className="text-sm text-primary hover:underline"
-      >
-        Change
-      </button>
+
+      {step === 1 && (
+        <>
+          <input
+            type="email"
+            placeholder="Enter email"
+            value={emailOrMobile}
+            onChange={(e) => setEmailOrMobile(e.target.value)}
+            className="w-full p-2 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+
+          {error && (
+            <p className="text-red-500 text-sm mb-3">{error}</p>
+          )}
+
+          <button
+            onClick={sendOtp}
+            disabled={loading}
+            className="w-full bg-primary text-white py-2 rounded flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-60"
+          >
+            {loading ? (
+              <>
+                <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+                Sending OTP...
+              </>
+            ) : (
+              "Send OTP"
+            )}
+          </button>
+        </>
+      )}
+
+      {step === 2 && (
+        <>
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm text-gray-600">
+              {maskEmail(emailOrMobile)}
+            </p>
+            <button
+              onClick={changeEmail}
+              className="text-sm text-primary hover:underline"
+            >
+              Change
+            </button>
+          </div>
+
+          <input
+            type="text"
+            placeholder="Enter OTP"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+            className="w-full p-2 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+
+          {isNewUser && (
+            <input
+              type="text"
+              placeholder="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full p-2 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          )}
+
+          {error && (
+            <p className="text-red-500 text-sm mb-3">{error}</p>
+          )}
+
+          <button
+            onClick={verifyOtp}
+            disabled={loadingVerify}
+            className="w-full bg-primary text-white py-2 rounded hover:opacity-90 disabled:opacity-60"
+          >
+            {loadingVerify ? "Verifying..." : "Verify & Login"}
+          </button>
+        </>
+      )}
     </div>
-    <input
-      type="text"
-      placeholder="Enter OTP"
-      value={otp}
-      onChange={(e) => setOtp(e.target.value)}
-      className="w-full p-2 border rounded mb-3"
-    />
+  </div>
+);
 
-    {isNewUser && (
-      <input
-        type="text"
-        placeholder="Your Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="w-full p-2 border rounded mb-4"
-      />
-    )}
-    {error && (
-  <p className="text-red-500 text-sm mb-3">{error}</p>
-)}
-
-    <button
-  onClick={verifyOtp}
-  disabled={loadingVerify}
-  className="w-full bg-primary text-white py-2 rounded disabled:opacity-60"
->
-  {loadingVerify ? "Verifying..." : "Verify & Login"}
-</button>
-
-  </>
-)}
-
-      </div>
-    </div>
-  );
 }
