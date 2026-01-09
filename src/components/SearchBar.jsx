@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import api from '../services/api'
 import HotelCard from '../pages/HotelCard'
+import { useSearchParams } from "react-router-dom"
+
 
 export default function SearchBar({ initialCity = '' }) {
   const [city, setCity] = useState(initialCity)
@@ -12,9 +14,18 @@ export default function SearchBar({ initialCity = '' }) {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [searchParams] = useSearchParams()
+
 
   const navigate = useNavigate()
 
+  useEffect(() => {
+  const cityFromUrl = searchParams.get("city")
+  if (cityFromUrl) {
+    setCity(cityFromUrl)
+  }
+}, [searchParams])
+  
   // Live search: fetch hotels as user types
   useEffect(() => {
   if (!city.trim()) return;
