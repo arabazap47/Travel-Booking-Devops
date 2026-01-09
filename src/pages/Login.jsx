@@ -209,7 +209,7 @@ return (
     ))}
 
     {/* Dark overlay */}
-    <div className="absolute inset-0 bg-black/60"></div>
+    <div className="absolute inset-0 bg-black/30"></div>
 
     {/* Login card */}
     <div className="relative z-10 flex items-center justify-center min-h-screen">
