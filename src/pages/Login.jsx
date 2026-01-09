@@ -208,9 +208,10 @@ React.useEffect(() => {
 //     </div>
 //   );
 return (
-  <div className="min-h-screen flex">
+  <div className="fixed inset-0 w-screen h-screen flex overflow-hidden">
+    
     {/* LEFT SIDE – LOGIN */}
-    <div className="w-full lg:w-2/5 flex items-center justify-center bg-gray-50 px-8">
+    <div className="w-full lg:w-[40%] h-full flex items-center justify-center bg-gray-50 px-8">
       <div className="w-full max-w-md">
         <h2 className="text-3xl font-bold mb-2 text-gray-800">
           Welcome Back
@@ -292,7 +293,7 @@ return (
     </div>
 
     {/* RIGHT SIDE – CAROUSEL */}
-    <div className="hidden lg:block w-3/5 relative overflow-hidden">
+    <div className="hidden lg:block w-[60%] h-full relative">
       {images.map((img, index) => (
         <div
           key={index}
@@ -316,8 +317,10 @@ return (
         </p>
       </div>
     </div>
+
   </div>
 );
+
 
 
 }
