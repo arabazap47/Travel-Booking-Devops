@@ -46,7 +46,7 @@ export default function SearchBar({ initialCity = '' }) {
         className="bg-white shadow-md rounded-lg p-4 grid grid-cols-1 md:grid-cols-5 gap-4 items-end"
       >
         {/* City */}
-        <div className="md:col-span-2">
+        {/* <div className="md:col-span-5">
           <label className="block text-xs font-semibold text-gray-500">Where</label>
           <input
             value={city}
@@ -54,7 +54,30 @@ export default function SearchBar({ initialCity = '' }) {
             placeholder="City, hotel, landmark"
             className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-accent focus:border-accent outline-none transition"
           />
-        </div>
+        </div> */}
+        <div className="md:col-span-5 w-full">
+  <label className="block text-sm font-semibold text-gray-600 mb-1">
+    Where
+  </label>
+
+  <input
+    value={city}
+    onChange={(e) => setCity(e.target.value)}
+    placeholder="City, hotel, landmark"
+    className="
+      w-full
+      border border-gray-300
+      rounded-lg
+      px-5 py-4
+      text-lg
+      focus:ring-2 focus:ring-accent
+      focus:border-accent
+      outline-none
+      transition
+    "
+  />
+</div>
+
 
         {/* Check-in */}
         {/* <div>
