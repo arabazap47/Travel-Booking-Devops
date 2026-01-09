@@ -7,7 +7,7 @@ export default function Home(){
     <div className="space-y-10">
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-white to-gray-100 p-6 rounded-lg shadow-md">
+      <section className="bg-gradient-to-r from-white to-gray-100 p-1 rounded-lg shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold text-gray-900">Find the best stays, deals & experiences by us</h1>
           <p className="text-gray-600 mt-2 text-lg">Search hotels, compare prices, and book instantly..</p>
