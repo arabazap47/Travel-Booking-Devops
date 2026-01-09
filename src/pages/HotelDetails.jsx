@@ -46,7 +46,7 @@ export default function HotelDetails() {
   if (!hotel) return <div className="p-6 text-gray-600">Hotel not found.</div>
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto px-4 py-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-7xl mx-0 px-2 py-4">
 
       <div className="md:col-span-2 bg-white rounded-lg shadow-md p-6">
         <img src={hotel.image} alt={hotel.name} className="w-full h-64 object-cover rounded" />
