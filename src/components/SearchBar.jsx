@@ -57,7 +57,7 @@ export default function SearchBar({ initialCity = '' }) {
         </div>
 
         {/* Check-in */}
-        <div>
+        {/* <div>
           <label className="block text-xs font-semibold text-gray-500">Check-in</label>
           <input
             type="date"
@@ -65,10 +65,10 @@ export default function SearchBar({ initialCity = '' }) {
             onChange={(e) => setCheckin(e.target.value)}
             className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-accent focus:border-accent outline-none transition"
           />
-        </div>
+        </div> */}
 
         {/* Check-out */}
-        <div>
+        {/* <div>
           <label className="block text-xs font-semibold text-gray-500">Check-Out</label>
           <input
             type="date"
@@ -76,10 +76,10 @@ export default function SearchBar({ initialCity = '' }) {
             onChange={(e) => setCheckout(e.target.value)}
             className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-accent focus:border-accent outline-none transition"
           />
-        </div>
+        </div> */}
 
         {/* Guests */}
-        <div>
+        {/* <div>
           <label className="block text-xs font-semibold text-gray-500">Guests</label>
           <select
             value={guests}
@@ -90,7 +90,7 @@ export default function SearchBar({ initialCity = '' }) {
               <option key={n} value={n}>{n}</option>
             ))}
           </select>
-        </div>
+        </div> */}
 
         {/* Submit button */}
         <div className="md:col-span-5 md:justify-self-end">
