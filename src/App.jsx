@@ -10,6 +10,8 @@ import Booking from "./pages/Booking";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MyBookings from "./pages/MyBookings";
+
 // import OwnerDashboard from "./pages/OwnerDashboard";
 
 
@@ -46,6 +48,8 @@ export default function App() {
   {/* PUBLIC ROUTES */}
   <Route path="/hotel/:id" element={<HotelDetails />} />
   <Route path="/booking/:id" element={<Booking />} />
+  <Route path="/my-bookings" element={<MyBookings />} />
+
 </Routes>
 
 
