@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
-
 
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -20,32 +21,63 @@ export default function MyBookings() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p className="p-6">Loading your bookings...</p>;
+  if (loading) {
+    return <p className="p-6 text-center text-gray-500">Loading your bookings...</p>;
+  }
 
   return (
-    <div className="max-w-5xl mx-auto p-6 space-y-4">
-      <h2 className="text-2xl font-bold mb-4">Your Bookings</h2>
+    <div className="max-w-7xl mx-auto px-6 py-8">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-3xl font-bold text-gray-800">Your Bookings</h2>
+        <button
+          onClick={() => navigate("/user")}
+          className="px-4 py-2 rounded-md bg-primary text-white hover:bg-accent transition"
+        >
+          Back to Home
+        </button>
+      </div>
 
       {bookings.length === 0 && (
-        <p className="text-gray-500">No bookings found.</p>
+        <div className="bg-white rounded-xl shadow-md p-8 text-center text-gray-500">
+          You have not made any bookings yet.
+        </div>
       )}
 
-      {bookings.map((b) => (
-        <div
-          key={b._id}
-          className="bg-white shadow-md rounded-lg p-4 flex justify-between"
-        >
-          <div>
-            <h3 className="font-semibold text-lg">{b.hotelName}</h3>
-            <p className="text-sm text-gray-600">
-              Guests: {b.guests}
-            </p>
-            <p className="text-xs text-gray-500">
-              Booked on {new Date(b.createdAt).toLocaleString()}
-            </p>
+      <div className="space-y-6">
+        {bookings.map((b) => (
+          <div
+            key={b._id}
+            className="w-full bg-gradient-to-r from-white to-gray-50 border rounded-2xl shadow-lg p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+          >
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800">
+                {b.hotelName}
+              </h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Guests: <span className="font-medium">{b.guests}</span>
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                Booked on {new Date(b.createdAt).toLocaleString()}
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => navigate("/user")}
+                className="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+              >
+                Home
+              </button>
+              <button
+                className="px-4 py-2 rounded-md bg-primary text-white hover:bg-accent transition"
+              >
+                View Details
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
