@@ -58,14 +58,12 @@ export default function MyBookings() {
                 Guests: <span className="font-medium">{b.guests}</span>
               </p>
               {b.checkin && b.checkout && (
-                <p className="text-sm text-gray-600">
-                  Stay:{" "}
-                  <span className="font-medium">
-                    {new Date(b.checkin).toLocaleDateString()} →{" "}
-                    {new Date(b.checkout).toLocaleDateString()}
-                  </span>
-                </p>
-              )}
+  <p className="text-sm text-gray-600">
+    Stay: {new Date(b.checkin).toLocaleDateString()} →{" "}
+    {new Date(b.checkout).toLocaleDateString()}
+  </p>
+)}
+
               <p className="text-xs text-gray-500 mt-1">
                 Booked on {new Date(b.createdAt).toLocaleString()}
               </p>
