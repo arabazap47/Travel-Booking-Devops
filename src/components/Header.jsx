@@ -63,8 +63,8 @@ export default function Header() {
                     <p className="text-xs text-gray-500">{user.role}</p>
                   </div>
                   <button
-  onClick={() => navigate("/my-bookings")}
-  className="w-full text-left px-4 py-2 hover:bg-gray-100"
+  // onClick={() => navigate("/my-bookings")}
+  // className="w-full text-left px-4 py-2 hover:bg-gray-100"
 >
   Your Bookings
 </button>
