@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import api from "../api";
+import api from "../services/api";
+
 
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
