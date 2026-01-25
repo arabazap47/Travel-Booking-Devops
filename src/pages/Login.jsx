@@ -219,7 +219,7 @@ return (
     <div className="relative z-10 flex items-center justify-center min-h-screen">
       <div className="bg-white/25 backdrop-blur-xl p-6 rounded-2xl shadow-2xl w-96">
         <h2 className="text-2xl font-bold mb-2 text-center text-gray-800">
-          Welcome To Travelly
+          Welcome To Travelly!
         </h2>
         <p className="text-sm text-center text-gray-500 mb-6">
           Login using OTP
