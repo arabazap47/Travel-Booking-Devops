@@ -20,7 +20,7 @@ export default function Header() {
             to="/user"
             className="text-2xl font-bold text-gray-800 hover:text-primary transition-colors"
           >
-            Travelly!
+            Travelly
           </Link>
         </div>
 
