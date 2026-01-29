@@ -50,7 +50,7 @@ export default function Header() {
                 <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold">
                   {user.role?.[0] || "U"}
                 </div>
-                <span className="text-gray-700 text-sm">Profile</span>
+                <span className="text-gray-700 text-sm">User Profile</span>
               </button>
 
               {open && (
